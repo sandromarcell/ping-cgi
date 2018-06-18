@@ -50,7 +50,7 @@ function listarIPs {
 	# Invalida qualquer dado enviado via POST que nao esteja no formato
 	# CIDR (xxx.xxx.xxx.xxx/yy)
 	echo "$1" | grep -Eoq '^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$' || {
-		echo '<p><strong>HTTP/1.1 405 Method Not Allowed</strong></p>'
+		echo '<p><strong>HTTP/1.1 403 Forbidden</strong></p>'
 		exit 1
 	}
 
