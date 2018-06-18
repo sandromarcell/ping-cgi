@@ -1,0 +1,53 @@
+Nota
+----
+ESTE PROGRAMA É DISTRIBUÍDO NA ESPERANÇA DE QUE POSSA VIR A SER ÚTIL, MAS SEM NENHUMA GARANTIA!
+
+Você é livre para modificar, melhorar ou otimizar este programa, mas peço gentilmente que mantenha os créditos originais. ;)
+
+Sobre
+-----
+O "ping-cgi" é um shell script que gera em "tempo real" uma listagem de quais IP's estão disponíveis (ou não) em sua rede.
+
+Desenvolvimento
+---------------
+Este projeto foi desenvolvido e testado no seguinte ambiente:
+
+- GNU/Linux 4.16.14_1 x86_64
+- GNU bash, version 4.4.19
+- lighttpd/1.4.49
+- nbtscan 1.0.35 (http://www.unixwiz.net/tools/nbtscan.html)
+- grep (GNU grep) 3.1
+- Nmap 7.70
+- stdbuf (GNU coreutils) 8.29
+- GNU Awk 4.2.1
+- cat (GNU coreutils) 8.29
+
+Instalação
+----------
+1) Edite o "src/ping.cgi" e altere a variável "REDES" conforme necessário
+
+2) Mova-o para o diretório cgi do seu servidor web
+
+3) Defina o dono e as permissões de acordo com o usuário que executa o daemon do seu servidor web
+
+* Utilizando o usuário "lighttpd" como exemplo:
+chown lighttpd:lighttpd ping.cgi
+
+4) Dê permissão de execução ao script:
+
+chmod 755 ping.cgi
+
+5) Finalmente acesse o script cgi através dum navegador web:
+
+http://<IP DO SERVIDOR>/cgi-bin/ping.cgi
+
+Projetos
+--------
+Para saber mais sobre os meus projetos, acesse meu repositório no Github: https://github.com/sandromarcell
+
+Dúvidas
+-------
+Para dúvidas ou outras informações:
+
+Email: smarcell@mail.com
+Blog: https://sanmarcell.wordpress.com
