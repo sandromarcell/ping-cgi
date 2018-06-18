@@ -30,7 +30,7 @@ function verificarDependencias {
 	local cmd
 	for cmd in $@; do
 		command -v $cmd > /dev/null 2>&1 || {
-			echo "<p><strong>HTTP/1.1 500 Internal Server Error</strong></p>"
+			echo '<p><strong>HTTP/1.1 500 Internal Server Error</strong></p>'
 			echo "<p><small>${cmd}: command not found</small></p>"
 			exit 1
 		}
