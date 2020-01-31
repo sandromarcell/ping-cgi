@@ -55,9 +55,9 @@ function listarIPs {
 	}
 
 	# Listagem dos estados dos hosts na(s) rede(s)
-	nmap -v -sn -oG - "$1" | stdbuf -o0 awk 'NR > 3 && NR <= 257 {print $2,$5}' > $arq_tmp	 
+	nmap -n -v -T3 -sn -oG - "$1" | awk 'NR > 3 && NR <= 257 {print $2,$5}' > $arq_tmp	 
 	ativos=$(grep -Fc 'Up' $arq_tmp)
-	inativos=$(grep -Fc -v 'Up' $arq_tmp)
+	inativos=$(grep -Fc 'Down' $arq_tmp)
 
 	echo "<tr><td>$rede</td><td>Ativa</td><td>$ativos</td><td>$inativos</td></tr></table><br />"
 	echo '<span class="info">** Podem ocorrer "falsos dispon&iacute;veis" devido a poss&iacute;veis bloqueios do protocolo ICMP **</span>'
@@ -81,7 +81,7 @@ function listarIPs {
 		if [ ${ip[1]} = 'Up' ]; then
 			status='Em uso'
 			# Retorna o "NetBios Name" dos hosts online
-			netbios=$(nbtscan -n -T 0.5 ${ip[0]} | stdbuf -o0 grep -Eo '\s(.+)?\\.+\s')
+			netbios=$(nbtscan -n -T 0.5 ${ip[0]} | grep -Eo '\s(.+)?\\.+\s')
 			[ -z "$netbios" ] && netbios='?'
 			classe='used'
 		else
@@ -99,7 +99,7 @@ function listarIPs {
 
 # Retornando os resultados para o browser
 echo -e "Content-type: text/html\n\n"
-verificarDependencias 'grep' 'nmap' 'stdbuf' 'awk' 'cat' 'nbtscan'
+verificarDependencias 'grep' 'nmap' 'awk' 'cat' 'nbtscan'
 cat <<-FIM
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -250,7 +250,7 @@ cat <<-FIM
 			</thead>
 			$(if [ "$REQUEST_METHOD" = 'POST' -a "$CONTENT_LENGTH" -gt 0 ]; then
 				read -n $CONTENT_LENGTH POST <&0
-				rede=$(echo $POST | stdbuf -o0 sed -e 's/\(.*=\)\(.*\)/\2/' -e 's/%2F/\//')
+				rede=$(echo $POST | sed -e 's/\(.*=\)\(.*\)/\2/' -e 's/%2F/\//')
 				listarIPs $rede
 			fi)
 	</table>
